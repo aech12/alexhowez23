@@ -1,38 +1,37 @@
-import * as React from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
+import { motion, useViewportScroll, useTransform } from 'framer-motion';
 
-const headerVariants = {
-  initial: { y: '-100vh' },
-  animate: {
-    y: 0,
-    transition: { delay: 0.5, duration: 0.5, type: 'spring' },
-  },
-};
+function Header() {
+  const { scrollYProgress } = useViewportScroll();
+  const headerY = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.3],
+    ['0%', '0%', '-100%'],
+  );
 
-const linkVariants = {
-  initial: { x: '100vw' },
-  animate: {
-    x: 0,
-    transition: { delay: 0.2, duration: 0.5, type: 'spring' },
-  },
-};
-
-const Header = () => {
   return (
     <motion.header
-    className="header"
-    variants={headerVariants}
-    initial="initial"
-    animate="animate"
-  >
-    <img src={'/hero_bg.jpg'} alt="Logo" className="logo" />
-    <nav>
-      <motion.a href="#link1" variants={linkVariants}>Link 1</motion.a>
-      <motion.a href="#link2" variants={linkVariants}>Link 2</motion.a>
-      <motion.a href="#link3" variants={linkVariants}>Link 3</motion.a>
-    </nav>
-  </motion.header>
-  )
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        background: 'white',
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '1em',
+        y: headerY,
+        transition: 'y 0.3s'
+      }}
+    >
+      <div>Logo</div>
+      <nav>
+        <a href="/">Link1</a>
+        <a href="/">Link2</a>
+        <a href="/">Link3</a>
+      </nav>
+    </motion.header>
+  );
 }
 
-export default Header;
+export default Header

@@ -1,40 +1,41 @@
-// support for .env, .env.development, and .env.production
-require("dotenv").config()
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
+import type { GatsbyConfig } from "gatsby";
 
-module.exports = {
+const config: GatsbyConfig = {
   siteMetadata: {
-    siteUrl: "https://gatsbydatocmshomepage.gatsbyjs.io/",
-    title: "Gatsby DatoCMS Homepage Starter",
-    author: `Gatsby`,
-    description: "A Gatsby Starter for building homepages with DatoCMS",
+    title: `AlexHowez 2023 Portfolio`,
+    siteUrl: `https://www.yourdomain.tld`
   },
+  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
+  // If you use VSCode you can also use the GraphQL plugin
+  // Learn more at: https://gatsby.dev/graphql-typegen
+  graphqlTypegen: true,
   plugins: [
+    "gatsby-plugin-root-import",
     {
-      resolve: "gatsby-source-datocms",
+      resolve: 'gatsby-source-datocms',
       options: {
-        apiToken: process.env.DATOCMS_API_TOKEN,
-        environment: process.env.DATOCMS_ENVIRONMENT,
-      },
-    },
-    "gatsby-plugin-image",
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
-    "gatsby-plugin-vanilla-extract",
-    {
-      resolve: "gatsby-plugin-manifest",
+        "apiToken": "35281867354445de9432d5c6a407f8"
+      }
+    }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sitemap", {
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        name: "Gatsby Starter DatoCMS Homepage",
-        short_name: "Gatsby",
-        start_url: "/",
-        // These can be imported once ESM support lands
-        background_color: "#ffffff",
-        theme_color: "#db3000",
-        icon: "src/favicon.png",
+        "icon": "src/images/icon.png"
+      }
+    }, "gatsby-plugin-mdx", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        "name": "images",
+        "path": "./src/images/"
       },
-    },
-    "gatsby-plugin-root-import"
-  ],
-}
+      __key: "images"
+    }, {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        "name": "pages",
+        "path": "./src/pages/"
+      },
+      __key: "pages"
+    }]
+};
+
+export default config;
