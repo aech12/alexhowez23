@@ -19,8 +19,8 @@ module.exports = {
         environment: process.env.DATOCMS_ENVIRONMENT,
       },
     },
-    "gatsby-plugin-sharp",
     "gatsby-plugin-image",
+    "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-vanilla-extract",
     {
@@ -35,5 +35,6 @@ module.exports = {
         icon: "src/favicon.png",
       },
     },
+    "gatsby-plugin-root-import"
   ],
 }
