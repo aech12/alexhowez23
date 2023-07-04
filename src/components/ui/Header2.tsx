@@ -2,12 +2,19 @@ import React from 'react';
 import { StaticImage } from "gatsby-plugin-image";
 // import { motion, useViewportScroll, useTransform } from 'framer-motion';
 import { Link } from "gatsby"
-import logo from 'static/logo.png'
+import logo from './logo.png'
+import { motion } from 'framer-motion';
 
-const links = [
-  { text: "MyProjects", href: "#projects" },
-  { text: "ContactMe", href: "#contactme" },
-  { text: "AboutMe", href: "#aboutme" },
+type LinkType = {
+  text: string;
+  href: string;
+  animDelay: number;
+};
+
+const links: LinkType[] = [
+  { text: "MyProjects", href: "#projects", animDelay: 0.25 },
+  { text: "ContactMe", href: "#contactme", animDelay: 0.5 },
+  { text: "AboutMe", href: "#aboutme", animDelay: 0.75 },
 ];
 
 function Header() {
@@ -16,27 +23,35 @@ function Header() {
       <div className="flex-1">
         <StaticImage
           className="cursor-pointer"
-          src={logo}
+          src="logo.png"
           alt="logo"
           width={45}
           height={45}
         />
       </div>
-      <div className="flex-none">
+      <ul className="flex-none flex">
         <HeaderLinks />
-      </div>
+      </ul>
     </header>
   );
 }
 
 const HeaderLinks = () => (
   <>
-    {links.map((link, i) => (
-      <a key={i} href={link.href}>
-        <li key={link.text} className="px-2 hover:text-white hover:bg-black transition-all">
-          {link.text}
-        </li>
-      </a>
+    {links.map((link: LinkType) => (
+      <motion.div
+        initial={{ x: 300, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ type: 'tween', duration: .5, delay: link.animDelay ?? 0 }}
+      >
+
+        <Link key={link.text} to={link.href}>
+          <li key={link.text} className="">
+            {/* <li key={link.text} className="px-2 hover:text-white hover:bg-black transition-all"> */}
+            {link.text}
+          </li>
+        </Link>
+      </motion.div>
     ))}
   </>
 );

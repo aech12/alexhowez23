@@ -2,8 +2,9 @@ import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `AlexHowez 2023 Portfolio`,
-    siteUrl: `https://www.yourdomain.tld`
+    title: `Web Developer AlexHowez`,
+    description: `Portfolio Website | Full Stack websites, chatbots & more`,
+    siteUrl: `https://www.alexhowez.gatsby.io`
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -11,6 +12,7 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     "gatsby-plugin-root-import",
+    'gatsby-plugin-postcss',
     {
       resolve: 'gatsby-source-datocms',
       options: {
